@@ -16,10 +16,12 @@ sudo sed -i 's/SELINUX=permissive/SELINUX=disabled/g' /etc/selinux/config /etc/s
 sudo pip install --upgrade pip 
 sudo pip install --upgrade virtualenv
 
-
 #
 # Python Tools
 #
+
+# IPython
+sudo pip install ipython[all]
 
 # MITIE NLP
 cd /home/vagrant
@@ -28,7 +30,7 @@ cd /home/vagrant/MITIE
 export MITIE_MODELS=MITIE-models-v0.2
 if [ ! -d "MITIE-models" ]; then
   wget --quiet http://sourceforge.net/projects/mitie/files/binaries/$MITIE_MODELS.tar.bz2
-  tar -xjf $MITIE_MODELS.tar.bz2
+  tar -xvjf $MITIE_MODELS.tar.bz2
   rm $MITIE_MODELS.tar.bz2
 fi
 make
@@ -77,6 +79,6 @@ sudo rpm --import https://packages.elasticsearch.org/GPG-KEY-elasticsearch
 sudo cp -f /vagrant/elasticsearch.repo /etc/yum.repos.d/
 sudo yum -y install elasticsearch
 sudo systemctl daemon-reload
-sudo systemctl enable elasticsearch.service
-sudo systemctl start elasticsearch.service
+#sudo systemctl enable elasticsearch.service
+#sudo systemctl start elasticsearch.service
 sudo /usr/share/elasticsearch/bin/plugin -i elasticsearch/marvel/latest
