@@ -13,7 +13,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network "forwarded_port", guest: 8888, host: 8888
   config.vm.network "forwarded_port", guest: 9200, host: 9200
 
-  config.vm.synced_folder "~/Code", "/home/vagrant/code", create: true
+  config.vm.synced_folder "../", "/home/vagrant/code", create: true
 
   config.vm.provision "shell", 
     privileged: false, 
