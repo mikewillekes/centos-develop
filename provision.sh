@@ -16,24 +16,15 @@ sudo sed -i 's/SELINUX=permissive/SELINUX=disabled/g' /etc/selinux/config /etc/s
 sudo pip install --upgrade pip 
 sudo pip install --upgrade virtualenv
 
-#
+# #########################################################
 # Python Tools
 #
 
 # IPython
 sudo pip install ipython[all]
 
-# MITIE NLP
-cd /home/vagrant
-git clone https://github.com/mit-nlp/MITIE.git
-cd /home/vagrant/MITIE
-export MITIE_MODELS=MITIE-models-v0.2
-if [ ! -d "MITIE-models" ]; then
-  wget --quiet http://sourceforge.net/projects/mitie/files/binaries/$MITIE_MODELS.tar.bz2
-  tar -xvjf $MITIE_MODELS.tar.bz2
-  rm $MITIE_MODELS.tar.bz2
-fi
-make
+# Pandas
+sudo pip install pandas
 
 # Newspaper: Scraping, Extraction and NLP 
 cd /home/vagrant
@@ -47,6 +38,31 @@ git clone https://github.com/grangier/python-goose.git
 cd python-goose
 sudo pip install -r requirements.txt
 sudo python setup.py install
+
+# Feedparser
+sudo pip install feedparser
+
+# Work with CSV files on the command line
+sudo pip install csvkit
+
+# Elasticsearch Client
+sudo pip install elasticsearch
+
+# /Python Tools
+# #########################################################
+
+
+# MITIE NLP (also has a python api)
+cd /home/vagrant
+git clone https://github.com/mit-nlp/MITIE.git
+cd /home/vagrant/MITIE
+export MITIE_MODELS=MITIE-models-v0.2
+if [ ! -d "MITIE-models" ]; then
+  wget --quiet http://sourceforge.net/projects/mitie/files/binaries/$MITIE_MODELS.tar.bz2
+  tar -xvjf $MITIE_MODELS.tar.bz2
+  rm $MITIE_MODELS.tar.bz2
+fi
+make
 
 #
 # NodeJs and common Libs
@@ -79,6 +95,6 @@ sudo rpm --import https://packages.elasticsearch.org/GPG-KEY-elasticsearch
 sudo cp -f /vagrant/elasticsearch.repo /etc/yum.repos.d/
 sudo yum -y install elasticsearch
 sudo systemctl daemon-reload
-#sudo systemctl enable elasticsearch.service
-#sudo systemctl start elasticsearch.service
+sudo systemctl enable elasticsearch.service
+sudo systemctl start elasticsearch.service
 sudo /usr/share/elasticsearch/bin/plugin -i elasticsearch/marvel/latest
