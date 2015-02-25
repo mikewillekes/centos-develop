@@ -8,10 +8,19 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.box = "chef/centos-7.0"
 
+  # #########################
+  # Inbound HTTP
   config.vm.network "forwarded_port", guest: 8080, host: 8080
+  
+  # Inbound HTTPS
   config.vm.network "forwarded_port", guest: 8443, host: 8443
-  config.vm.network "forwarded_port", guest: 8888, host: 8888
+  
+  # Elasticsearch
   config.vm.network "forwarded_port", guest: 9200, host: 9200
+  
+  # Kibana
+  config.vm.network "forwarded_port", guest: 5601, host: 5601
+  # #########################
 
   config.vm.synced_folder "../", "/home/vagrant/code", create: true
 

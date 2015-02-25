@@ -12,13 +12,13 @@ sudo yum -y install python-devel libxml2-devel libxslt-devel libjpeg-devel zlib-
 # Disable SELinux for development
 sudo sed -i 's/SELINUX=permissive/SELINUX=disabled/g' /etc/selinux/config /etc/selinux/config
 
-# Upgrade Python package manager
-sudo pip install --upgrade pip 
-sudo pip install --upgrade virtualenv
 
 # #########################################################
 # Python Tools
-#
+
+# Upgrade Python package manager
+sudo pip install --upgrade pip 
+sudo pip install --upgrade virtualenv
 
 # IPython
 sudo pip install ipython[all]
@@ -48,11 +48,9 @@ sudo pip install csvkit
 # Elasticsearch Client
 sudo pip install elasticsearch
 
-# /Python Tools
+
 # #########################################################
-
-
-# MITIE NLP (also has a python api)
+# MITIE NLP
 cd /home/vagrant
 git clone https://github.com/mit-nlp/MITIE.git
 cd /home/vagrant/MITIE
@@ -64,11 +62,15 @@ if [ ! -d "MITIE-models" ]; then
 fi
 make
 
+
+# #########################################################
 #
 # NodeJs and common Libs
 #
 sudo yum -y install nodejs npm
 
+
+# #########################################################
 #
 # Apacke Kafka
 #
@@ -81,16 +83,22 @@ if [ ! -d "$KAFKA" ]; then
   ln -s $KAFKA kafka
 fi 
 
+
+# #########################################################
 #
 # Docker
 #
+cd /home/vagrant
 sudo yum -y install docker
 sudo systemctl daemon-reload
 sudo systemctl restart docker
 
+
+# #########################################################
 #
 # Elasticsearch
 #
+cd /home/vagrant
 sudo rpm --import https://packages.elasticsearch.org/GPG-KEY-elasticsearch
 sudo cp -f /vagrant/elasticsearch.repo /etc/yum.repos.d/
 sudo yum -y install elasticsearch
@@ -98,3 +106,13 @@ sudo systemctl daemon-reload
 sudo systemctl enable elasticsearch.service
 sudo systemctl start elasticsearch.service
 sudo /usr/share/elasticsearch/bin/plugin -i elasticsearch/marvel/latest
+
+
+# #########################################################
+#
+# Scala
+#
+cd /home/vagrant
+wget --quiet http://downloads.typesafe.com/scala/2.11.5/scala-2.11.5.rpm
+sudo rpm -ivh scala-2.11.5.rpm
+
